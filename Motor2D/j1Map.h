@@ -20,7 +20,7 @@ struct TileSet
 enum map_orientation
 {
 	NONE = -1,
-	ortohgonal,
+	orthogonal,
 	isometric
 };
 
@@ -68,12 +68,15 @@ public:
 
 private:
 
-	void LoadMap();
+	pugi::xml_node LoadMap(pugi::xml_document&) const;
+	pugi::xml_node LoadTileset(pugi::xml_document&) const;
 
 public:
 
 	// TODO 1: Add your struct for map info as public for now
-	struct Map;
+	struct Map map_s;
+
+	
 
 private:
 

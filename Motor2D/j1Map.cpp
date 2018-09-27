@@ -68,7 +68,11 @@ bool j1Map::Load(const char* file_name)
 	{
 		// TODO 3: Create and call a private function to load and fill
 		// all your map data
-		LoadMap();
+		pugi::xml_node map;
+
+		map = LoadMap(map_file);
+
+		map_s.orientation = map.attribute("orientation").value();
 
 	}
 
@@ -87,7 +91,13 @@ bool j1Map::Load(const char* file_name)
 	return ret;
 }
 
-void j1Map::LoadMap() 
+pugi::xml_node j1Map::LoadMap(pugi::xml_document& map_file) const
 {
+	pugi::xml_node ret;
 
+	pugi::xml_parse_result result = map_file.load_file("hello2.tmx");
+
+	ret = map_file.child("map");
+
+	return ret;
 }
