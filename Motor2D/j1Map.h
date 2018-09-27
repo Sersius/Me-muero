@@ -13,20 +13,21 @@ struct TileSet
 {
 	uint tilewidth = 0u;
 	uint tileheight = 0u;
-	uint sapcing = 0u;
+	uint spacing = 0u;
 	uint margin = 0u;
+	SDL_Texture* texture;
 };
 
 enum map_orientation
 {
-	NONE = -1,
+	NONE,
 	orthogonal,
 	isometric
 };
 
 enum map_renderorder
 {
-	NONE = -1,
+	none,
 	right_down,
 	right_up,
 	left_down,
@@ -40,8 +41,9 @@ struct Map
 	uint height = 0u;
 	uint tilewidth= 0u;
 	uint tileheight = 0u;
-	map_renderorder renderorder = map_renderorder::NONE;
+	map_renderorder renderorder = map_renderorder::none;
 	map_orientation orientation = map_orientation::NONE;
+
 };
 
 // ----------------------------------------------------
@@ -68,14 +70,14 @@ public:
 
 private:
 
-	pugi::xml_node LoadMap(pugi::xml_document&) const;
-	pugi::xml_node LoadTileset(pugi::xml_document&) const;
+	void LoadMap(pugi::xml_document&);
+	void LoadTileset(pugi::xml_document&);
 
 public:
 
 	// TODO 1: Add your struct for map info as public for now
-	struct Map map_s;
-
+	Map map_s;
+	p2List<TileSet*> tile_s;
 	
 
 private:
