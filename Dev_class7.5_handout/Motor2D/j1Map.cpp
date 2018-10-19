@@ -39,11 +39,27 @@ void j1Map::PropagateBFS()
 {
 	// TODO 1: If frontier queue contains elements
 	// pop the last one and calculate its 4 neighbors
-	iPoint neighbor;
-	p2Queue_item<iPoint>* frontier_item = frontier.start;
-	while (frontier.start != NULL)
+	iPoint neighbor[4];
+
+	if (frontier.start != NULL)
 	{
+		p2Queue_item<iPoint>* frontier_item = frontier.start;
 		frontier.Pop(frontier_item->data);
+		
+		neighbor[0] = { frontier_item->data.x, frontier_item->data.y - 1 };
+		neighbor[1] = { frontier_item->data.x + 1, frontier_item->data.y };
+		neighbor[2] = { frontier_item->data.x, frontier_item->data.y + 1 };
+		neighbor[3] = { frontier_item->data.x - 1, frontier_item->data.y };
+
+		for (int i = 0; i < 4; i++)
+		{
+			if (visited.find(neighbor[i]) != -1);
+			{
+				visited.add(neighbor[i]);
+				frontier.Push(neighbor[i]);
+			}
+		}
+
 	}
 
 	// TODO 2: For each neighbor, if not visited, add it
