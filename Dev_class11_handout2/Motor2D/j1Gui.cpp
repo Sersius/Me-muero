@@ -6,6 +6,7 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include "GuiImage.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -44,6 +45,12 @@ bool j1Gui::PreUpdate()
 // Called after all Updates
 bool j1Gui::PostUpdate()
 {
+	for (uint i = 0u; i < element.Count(); i++) {
+		if (element[i] != nullptr) {
+			element[i]->Draw(atlas);
+		}
+	}
+
 	return true;
 }
 
@@ -52,12 +59,17 @@ bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
 
+	App->tex->UnLoad(atlas);
+
 	return true;
 }
 
-bool j1Gui::CreateImage(int x, int y, UiType type, SDL_Texture * texture)
+GuiElement* j1Gui::CreateImage(int x, int y, SDL_Rect rect)
 {
-	return false;
+	GuiElement* image = new GuiImage(x,y,rect);
+	element.PushBack(image);
+
+	return nullptr;
 }
 
 // const getter for atlas
